@@ -81,3 +81,14 @@ Thumbs.db
 .gitpod.yml
 .gitpod/
 .theia/
+
+# Configuration files with sensitive information
+*.properties
+application.yml
+application.yaml
+application.conf
+config.json
+
+# But allow certain property files that don't contain sensitive data
+!application-example.properties
+!logback.xml
