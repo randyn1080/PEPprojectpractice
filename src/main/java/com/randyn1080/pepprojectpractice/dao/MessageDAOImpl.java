@@ -16,7 +16,7 @@ public class MessageDAOImpl implements MessageDAO {
     }
 
     @Override
-    public List<Message> getMessagesByAccountId(int accountId) {
+    public List<Message> getAllMessagesByAccountId(int accountId) {
         return List.of();
     }
 

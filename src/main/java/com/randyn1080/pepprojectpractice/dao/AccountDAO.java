@@ -12,8 +12,8 @@ public interface AccountDAO {
 
     /**
      * Read account
-     * @param account
+     * @param accountId
      * @return
      */
-    Account getAccountById(Account account);
+    Account getAccountById(int accountId);
 }
