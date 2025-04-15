@@ -17,11 +17,11 @@ public class AccountDAOImpl implements AccountDAO {
     /**
      * Read account
      *
-     * @param account
+     * @param accountId
      * @return
      */
     @Override
-    public Account getAccountById(Account account) {
+    public Account getAccountById(int accountId) {
         return null;
     }
 }
