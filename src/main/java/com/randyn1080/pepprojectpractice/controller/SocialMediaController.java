@@ -58,6 +58,17 @@ public class SocialMediaController {
     }
 
     private void login(Context ctx) {
+        try {
+            Account account = ctx.bodyAsClass(Account.class);
+            Account loggedInAccount = accountService.login(account);
+            if (loggedInAccount != null) {
+                ctx.json(loggedInAccount);
+            } else {
+                ctx.status(401);
+            }
+        } catch (Exception e) {
+            ctx.status(401).result("Error logging in: " + e.getMessage());
+        }
     }
 
     private void createMessage(Context ctx) {
