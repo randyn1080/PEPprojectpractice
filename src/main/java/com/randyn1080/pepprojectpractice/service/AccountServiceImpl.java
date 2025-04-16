@@ -1,11 +1,37 @@
 package com.randyn1080.pepprojectpractice.service;
 
+import com.randyn1080.pepprojectpractice.dao.AccountDAOImpl;
 import com.randyn1080.pepprojectpractice.model.Account;
+import com.randyn1080.pepprojectpractice.dao.AccountDAO;
 
 public class AccountServiceImpl implements AccountService {
+    private final AccountDAO accountDAO;
+
+    public AccountServiceImpl() {
+        this.accountDAO = new AccountDAOImpl();
+    }
+
+    /**
+     * Registers a new user account.
+     * @param account - an Account object containing the username and password for the new user.
+     * @return the newly created Account object if successful, null otherwise.
+     */
     @Override
     public Account registerUser(Account account) {
-        return null;
+        // Validate account
+        if (account.getUsername() == null || account.getUsername().isBlank()) {
+            return null;
+        }
+        if (account.getPassword() == null || account.getPassword().length() < 4) {
+            return null;
+        }
+        Account existingAccount = accountDAO.getAccountByUsername(account.getUsername());
+        if (existingAccount != null) {
+            return null;
+        }
+        // validated, create the account
+        return accountDAO.createAccount(account);
+
     }
 
     @Override
