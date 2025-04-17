@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
  * found in readme.md as well as the test cases. You should
- * refer to prior mini-protestject labs and lecture materials for guidance on how a controller may be built.
+ * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 public class SocialMediaController {
     private final AccountService accountService;
@@ -33,6 +33,7 @@ public class SocialMediaController {
      */
     public Javalin startAPI() {
         Javalin app = Javalin.create();
+
         app.post("/register", this::registerUser);
         app.post("/login", this::login);
         app.post("/messages", this::createMessage);
@@ -40,7 +41,7 @@ public class SocialMediaController {
         app.get("/messages/{message_id}", this::getMessageById);
         app.delete("/messages/{message_id}", this::deleteMessage);
         app.patch("/messages/{message_id}", this::updateMessage);
-        app.get("/accounts/{account_id}", this::getMessagesByUser);
+        app.get("/accounts/{account_id}/messages", this::getMessagesByUser);
 
         return app;
     }
@@ -100,7 +101,12 @@ public class SocialMediaController {
     private void getMessageById(Context ctx) {
         int messageId = Integer.parseInt(ctx.pathParam("message_id"));
         Message message = messageService.getMessageById(messageId);
-        ctx.json(message);
+        if (message != null) {
+            ctx.json(message);
+        } else {
+            ctx.json("");
+        }
+
     }
 
     private void deleteMessage(Context ctx) {
@@ -133,5 +139,6 @@ public class SocialMediaController {
 
         ctx.json(messages);
     }
+
 
 }

@@ -11,11 +11,6 @@ public class AccountServiceImpl implements AccountService {
         this.accountDAO = new AccountDAOImpl();
     }
 
-    /**
-     * Registers a new user account.
-     * @param account - an Account object containing the username and password for the new user.
-     * @return the newly created Account object if successful, null otherwise.
-     */
     @Override
     public Account registerUser(Account account) {
         // Validate account
@@ -31,7 +26,6 @@ public class AccountServiceImpl implements AccountService {
         }
         // validated, create the account
         return accountDAO.createAccount(account);
-
     }
 
     @Override
@@ -56,4 +50,5 @@ public class AccountServiceImpl implements AccountService {
     public Boolean accountExists(int accountId) {
         return accountDAO.getAccountById(accountId) != null;
     }
+
 }

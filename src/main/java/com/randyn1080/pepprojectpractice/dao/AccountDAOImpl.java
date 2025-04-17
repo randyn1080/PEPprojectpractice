@@ -6,6 +6,7 @@ import com.randyn1080.pepprojectpractice.util.ConnectionUtil;
 import java.sql.*;
 
 public class AccountDAOImpl implements AccountDAO {
+
     @Override
     public Account createAccount(Account account) {
         String sql = "INSERT INTO account (username, password) VALUES (?,?)";
@@ -57,7 +58,6 @@ public class AccountDAOImpl implements AccountDAO {
 
         return null;
     }
-
 
     @Override
     public Account getAccountById(int accountId) {
@@ -158,4 +158,6 @@ public class AccountDAOImpl implements AccountDAO {
 
         return null;
     }
+
+
 }
