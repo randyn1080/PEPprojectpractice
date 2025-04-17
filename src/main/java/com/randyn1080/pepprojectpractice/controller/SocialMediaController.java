@@ -128,6 +128,10 @@ public class SocialMediaController {
     }
 
     private void getMessagesByUser(Context ctx) {
+        int accountId = Integer.parseInt(ctx.pathParam("account_id"));
+        List<Message> messages = messageService.getAllMessagesByAccountId(accountId);
+
+        ctx.json(messages);
     }
 
 }

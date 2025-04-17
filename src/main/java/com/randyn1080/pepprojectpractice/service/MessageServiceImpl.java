@@ -37,7 +37,7 @@ public class MessageServiceImpl implements  MessageService {
 
     @Override
     public List<Message> getAllMessagesByAccountId(int accountId) {
-        return List.of();
+        return messageDAO.getAllMessagesByAccountId(accountId);
     }
 
     @Override
