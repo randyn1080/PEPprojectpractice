@@ -51,4 +51,9 @@ public class AccountServiceImpl implements AccountService {
 
         return null;
     }
+
+    @Override
+    public Boolean accountExists(int accountId) {
+        return accountDAO.getAccountById(accountId) != null;
+    }
 }

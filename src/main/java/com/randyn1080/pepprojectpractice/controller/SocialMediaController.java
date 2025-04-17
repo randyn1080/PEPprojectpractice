@@ -1,8 +1,11 @@
 package com.randyn1080.pepprojectpractice.controller;
 
 import com.randyn1080.pepprojectpractice.model.Account;
+import com.randyn1080.pepprojectpractice.model.Message;
 import com.randyn1080.pepprojectpractice.service.AccountService;
 import com.randyn1080.pepprojectpractice.service.AccountServiceImpl;
+import com.randyn1080.pepprojectpractice.service.MessageService;
+import com.randyn1080.pepprojectpractice.service.MessageServiceImpl;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import org.jetbrains.annotations.NotNull;
@@ -14,9 +17,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SocialMediaController {
     private final AccountService accountService;
+    private final MessageService messageService;
 
     public SocialMediaController() {
         this.accountService = new AccountServiceImpl();
+        this.messageService = new MessageServiceImpl();
     }
 
     /**
@@ -72,6 +77,17 @@ public class SocialMediaController {
     }
 
     private void createMessage(Context ctx) {
+        try {
+            Message message = ctx.bodyAsClass(Message.class);
+            Message validMessage = messageService.createMessage(message);
+            if (validMessage != null) {
+                ctx.json(validMessage);
+            } else {
+                ctx.status(400);
+            }
+        } catch (Exception e) {
+            ctx.status(400).result("Error creating message: " + e.getMessage());
+        }
     }
 
     private void getAllMessages(Context ctx) {
