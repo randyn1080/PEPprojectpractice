@@ -9,6 +9,6 @@ public interface MessageDAO {
     List<Message> getAllMessages();
     List<Message> getAllMessagesByAccountId(int accountId);
     Message getMessageById(int msgId);
-    Boolean updateMessage(Message message);
+    Message updateMessageText(int msgId, String newText);
     Boolean deleteMessage(int msgId);
 }
