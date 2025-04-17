@@ -32,7 +32,7 @@ public class MessageServiceImpl implements  MessageService {
 
     @Override
     public List<Message> getAllMessages() {
-        return List.of();
+        return messageDAO.getAllMessages();
     }
 
     @Override
