@@ -184,7 +184,7 @@ public class MessageDAOImpl implements MessageDAO {
         try {
             connection = ConnectionUtil.getConnection();
             pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, msgId);
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
                 return true;
