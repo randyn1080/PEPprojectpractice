@@ -3,9 +3,14 @@ package com.randyn1080.pepprojectpractice.dao;
 import com.randyn1080.pepprojectpractice.model.Account;
 import com.randyn1080.pepprojectpractice.util.ConnectionUtil;
 
+import com.randyn1080.pepprojectpractice.util.DatabaseUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.*;
 
 public class AccountDAOImpl implements AccountDAO {
+    private static final Logger logger = LoggerFactory.getLogger(AccountDAOImpl.class);
 
     @Override
     public Account createAccount(Account account) {
@@ -27,33 +32,16 @@ public class AccountDAOImpl implements AccountDAO {
             if (rs.next()) {
                 int generatedAccountId = rs.getInt(1);
                 account.setAccount_id(generatedAccountId);
+                logger.info("Account created with id: {}", generatedAccountId);
                 return account;
             }
 
         } catch (SQLException e) {
-            //TODO: handle exception
+            logger.error("Error creating account: {}", e.getMessage());
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    //TODO: handle exception
-                }
-            }
-            if (pstmt != null){
-                try {
-                    pstmt.close();
-                } catch(SQLException e) {
-                    //TODO: handle exception
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    //TODO: handle exception
-                }
-            }
+            DatabaseUtil.closeResource(rs);
+            DatabaseUtil.closeResource(pstmt);
+            DatabaseUtil.closeResource(connection);
         }
 
         return null;
@@ -83,27 +71,9 @@ public class AccountDAOImpl implements AccountDAO {
         } catch (SQLException e) {
             //TODO: handle exception
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch(SQLException e) {
-                    //TODO: handle exception
-                }
-            }
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    //TODO: handle exception
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    //TODO: handle exception
-                }
-            }
+            DatabaseUtil.closeResource(rs);
+            DatabaseUtil.closeResource(pstmt);
+            DatabaseUtil.closeResource(connection);
         }
 
         return null;
@@ -133,27 +103,9 @@ public class AccountDAOImpl implements AccountDAO {
         } catch (SQLException e) {
             //TODO: handle exception
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    //TODO: handle exception
-                }
-            }
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    //TODO: handle exception
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    //TODO: handle exception
-                }
-            }
+            DatabaseUtil.closeResource(rs);
+            DatabaseUtil.closeResource(pstmt);
+            DatabaseUtil.closeResource(connection);
         }
 
         return null;
