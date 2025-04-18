@@ -11,6 +11,7 @@ import io.javalin.http.Context;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller. The endpoints you will need can be
@@ -101,23 +102,14 @@ public class SocialMediaController {
     private void getMessageById(Context ctx) {
         int messageId = Integer.parseInt(ctx.pathParam("message_id"));
         Message message = messageService.getMessageById(messageId);
-        if (message != null) {
-            ctx.json(message);
-        } else {
-            ctx.json("");
-        }
+        ctx.json(Objects.requireNonNullElse(message, ""));
 
     }
 
     private void deleteMessage(Context ctx) {
         int messageId = Integer.parseInt(ctx.pathParam("message_id"));
-        Message messageToDelete = messageService.getMessageById(messageId);
-        boolean deleted = messageService.deleteMessage(messageId);
-        if (deleted) {
-            ctx.json(messageToDelete);
-        } else {
-            ctx.json("");
-        }
+        Message deletedMessage = messageService.deleteMessage(messageId);
+        ctx.json(Objects.requireNonNullElse(deletedMessage, ""));
     }
 
     private void updateMessage(Context ctx) {
