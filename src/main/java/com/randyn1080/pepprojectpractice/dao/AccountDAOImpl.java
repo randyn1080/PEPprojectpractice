@@ -2,8 +2,8 @@ package com.randyn1080.pepprojectpractice.dao;
 
 import com.randyn1080.pepprojectpractice.model.Account;
 import com.randyn1080.pepprojectpractice.util.ConnectionUtil;
-
 import com.randyn1080.pepprojectpractice.util.DatabaseUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +61,7 @@ public class AccountDAOImpl implements AccountDAO {
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
+                logger.info("Retrieved account with ID: {}", accountId);
                 Account account = new Account();
                 account.setAccount_id(accountId);
                 account.setUsername(rs.getString("username"));
@@ -69,7 +70,7 @@ public class AccountDAOImpl implements AccountDAO {
             }
 
         } catch (SQLException e) {
-            //TODO: handle exception
+            logger.error("Error retrieving account with ID {}: {}", accountId, e.getMessage());
         } finally {
             DatabaseUtil.closeResource(rs);
             DatabaseUtil.closeResource(pstmt);
@@ -97,11 +98,12 @@ public class AccountDAOImpl implements AccountDAO {
                 account.setAccount_id(rs.getInt("account_id"));
                 account.setUsername(rs.getString("username"));
                 account.setPassword(rs.getString("password"));
+                logger.info("Retrieved account with username: {}", username);
                 return account;
             }
 
         } catch (SQLException e) {
-            //TODO: handle exception
+            logger.error("Error retrieving account with username {}: {}", username, e.getMessage());
         } finally {
             DatabaseUtil.closeResource(rs);
             DatabaseUtil.closeResource(pstmt);
